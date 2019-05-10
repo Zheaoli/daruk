@@ -4,12 +4,10 @@ strategy:
       node_version: 10.x
 
 jobs:
-
 - job: macOS_CI_Tests
   displayName: MacOS CI Tests
   pool:
     vmImage: macOS-10.13
-
   steps:
   - template: ./daruk.yml
 
@@ -18,7 +16,6 @@ jobs:
   displayName: Ubuntu  CI Tests
   pool:
     vmImage: ubuntu-16.04
-
   steps:
   - template: ./daruk.yml
 
@@ -26,6 +23,5 @@ jobs:
   displayName: Windows  CI Tests
   pool:
     vmImage: vs2017-win2016
-
   steps:
   - template: ./daruk.yml
