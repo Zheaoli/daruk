@@ -2,32 +2,30 @@ strategy:
   matrix:
     node_10_x:
       node_version: 10.x
-    node_11_x:
-      node_version: 11.x
-    node_12_x:
-      node_version: 12.x
-    linux:
-      imageName: "ubuntu-16.04"
-    mac:
-      imageName: "macos-10.13"
-    windows:
-      imageName: "vs2017-win2016"
 
-pool:
-  vmImage: $(imageName)
+jobs:
+
+- job: macOS_CI_Tests
+  displayName: MacOS CI Tests
+  pool:
+    vmImage: macOS-10.13
+
+  steps:
+  - template: ./daruk.yml
 
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: $(node_version)
+- job: ubuntu_CI_Tests
+  displayName: Ubuntu  CI Tests
+  pool:
+    vmImage: ubuntu-16.04
 
-- script: npm install -g codecov
+  steps:
+  - template: ./daruk.yml
 
-- script: npm install
+- job: windows_CI_Tests
+  displayName: Windows  CI Tests
+  pool:
+    vmImage: vs2017-win2016
 
-- script: npm run tslint
-
-- script: npm test
-
-- script: npm run cov
+  steps:
+  - template: ./daruk.yml
