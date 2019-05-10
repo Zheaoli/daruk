@@ -1,0 +1,33 @@
+strategy:
+  matrix:
+    node_10_x:
+      node_version: 10.x
+    node_11_x:
+      node_version: 11.x
+    node_12_x:
+      node_version: 12.x
+    linux:
+      imageName: "ubuntu-16.04"
+    mac:
+      imageName: "macos-10.13"
+    windows:
+      imageName: "vs2017-win2016"
+
+pool:
+  vmImage: $(imageName)
+
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: $(node_version)
+
+- script: npm install -g codecov
+
+- script: npm install
+
+- script: npm run tslint
+
+- script: npm test
+
+- script: npm run cov
