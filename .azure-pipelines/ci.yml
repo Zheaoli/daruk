@@ -1,49 +1,33 @@
-- job: macOS_CI_Tests
-  displayName: MacOS CI Tests
-  pool:
-    vmImage: macOS-10.13
-  strategy:
-    matrix:
-      node_10_x:
-        node_version: 10.x
-      node_11_x:
-        node_version: 11.x
-      node_12_x:
-        node_version: 12.x
+strategy:
+  matrix:
+    node_10_x:
+      node_version: 10.x
+    node_11_x:
+      node_version: 11.x
+    node_12_x:
+      node_version: 12.x
+    linux:
+      imageName: "ubuntu-16.04"
+    mac:
+      imageName: "macos-10.13"
+    windows:
+      imageName: "vs2017-win2016"
 
-  steps:
-  - template: ./daruk.yml
+pool:
+  vmImage: $(imageName)
 
 
-- job: ubuntu_CI_Tests
-  displayName: Ubuntu  CI Tests
-  pool:
-    vmImage: ubuntu-16.04
-  strategy:
-    matrix:
-      node_10_x:
-        node_version: 10.x
-      node_11_x:
-        node_version: 11.x
-      node_12_x:
-        node_version: 12.x
+steps:
+- task: Daruk Test 
+  inputs:
+    versionSpec: $(node_version)
 
-  steps:
-  - template: ./daruk.yml
+- script: npm install -g codecov
 
-- job: windows_CI_Tests
-  displayName: Windows  CI Tests
-  pool:
-    vmImage: vs2017-win2016
-  strategy:
-    matrix:
-      node_10_x:
-        node_version: 10.x
-      node_11_x:
-        node_version: 11.x
-      node_12_x:
-        node_version: 12.x
+- script: npm install
 
-  steps:
-  - template: ./daruk.yml
+- script: npm run tslint
 
+- script: npm test
+
+- script: npm run cov
