@@ -1,0 +1,14 @@
+steps:
+- task: NodeTool@0 
+  inputs:
+    versionSpec: $(node_version)
+
+- script: npm install -g codecov
+
+- script: npm install
+
+- script: npm run tslint
+
+- script: npm test
+
+- script: npm run cov

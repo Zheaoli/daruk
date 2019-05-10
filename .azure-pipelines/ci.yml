@@ -1,0 +1,49 @@
+- job: macOS_CI_Tests
+  displayName: MacOS CI Tests
+  pool:
+    vmImage: macOS-10.13
+  strategy:
+    matrix:
+      node_10_x:
+        node_version: 10.x
+      node_11_x:
+        node_version: 11.x
+      node_12_x:
+        node_version: 12.x
+
+  steps:
+  - template: ./daruk.yml
+
+
+- job: ubuntu_CI_Tests
+  displayName: Ubuntu  CI Tests
+  pool:
+    vmImage: ubuntu-16.04
+  strategy:
+    matrix:
+      node_10_x:
+        node_version: 10.x
+      node_11_x:
+        node_version: 11.x
+      node_12_x:
+        node_version: 12.x
+
+  steps:
+  - template: ./daruk.yml
+
+- job: windows_CI_Tests
+  displayName: Windows  CI Tests
+  pool:
+    vmImage: vs2017-win2016
+  strategy:
+    matrix:
+      node_10_x:
+        node_version: 10.x
+      node_11_x:
+        node_version: 11.x
+      node_12_x:
+        node_version: 12.x
+
+  steps:
+  - template: ./daruk.yml
+
