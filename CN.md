@@ -62,4 +62,3 @@ npm run dev
 [coveralls-url]: https://codecov.io/github/daruk-framework/daruk?branch=master
 [pr-welcoming-image]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [pr-welcoming-url]: https://github.com/daruk-framework/daruk/pull/new
-
